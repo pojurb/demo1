@@ -1,0 +1,23 @@
+# === SENSITIVE DATA (never commit real financial data) ===
+data/Portfolio_Master_State.md
+
+# === GENERATED OUTPUTS (regenerable by AI) ===
+outputs/living_thesis/*.md
+!outputs/living_thesis/_example_BBCA.md
+
+# === USER-UPLOADED RAW DATA ===
+inputs/stocks/*.csv
+inputs/startups/*.csv
+inputs/conventional_biz/*.csv
+# Keep sample data as part of the template
+!inputs/stocks/_sample_BBCA.csv
+!inputs/startups/_sample_fintech.csv
+!inputs/conventional_biz/_sample_cafe.csv
+
+# === OS ARTIFACTS ===
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# === NODE ===
+node_modules/

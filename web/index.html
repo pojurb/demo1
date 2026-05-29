@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JP Family Office — AI PM Portfolio & Investment Cockpit</title>
+    <meta name="description" content="AI Product Manager Portfolio Case Study & Interactive Tri-Vertical Investment Cockpit. Engineered by Johannes Purba.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="industrial-theme">
+
+    <div class="cockpit-container">
+        
+        <!-- SIDEBAR: PM CASE STUDY & INTRO (For HR/Recruiters) -->
+        <aside class="case-study-sidebar" id="sidebar-panel">
+            <div class="panel-header warning-stripes">
+                <span class="panel-title">AI PM SPECIFICATION</span>
+                <button class="toggle-btn" id="toggle-sidebar" aria-label="Minimize Spec panel">◀</button>
+            </div>
+            
+            <div class="panel-body scrollable">
+                <div class="pm-intro">
+                    <h1>Johannes Purba</h1>
+                    <span class="badge badge-cyan">AI PRODUCT MANAGER</span>
+                    <p class="summary-text">Specialize in designing, validating, and building deterministic and agentic AI systems for business decision-making.</p>
+                </div>
+
+                <div class="tabs-control">
+                    <button class="tab-btn active" data-tab="case-study">CASE STUDY</button>
+                    <button class="tab-btn" data-tab="metrics">METRICS & PRD</button>
+                </div>
+
+                <!-- TAB: Case Study Content -->
+                <div class="tab-content active" id="tab-case-study">
+                    <h3>Problem Statement</h3>
+                    <p>Dalam pengelolaan portfolio <em>Family Office</em>, memproses data dari 3 vertikal aset yang sangat berbeda (Saham, VC/Startup, Bisnis Konvensional) seringkali terhambat oleh <strong>bias konfirmasi manusia</strong> dan lamanya riset manual.</p>
+
+                    <h3>The AI Agentic Solution</h3>
+                    <p>Sistem ini dirancang sebagai kokpit kuantitatif modular yang menggunakan pendekatan <strong>Multi-Agent Red Teaming</strong> &amp; <strong>Human-in-the-Loop</strong>.</p>
+                    
+                    <div class="diagram-box">
+                        <div class="diagram-step">1. Ingest Data</div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-step">2. Math Sandbox (DCF/BEP)</div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-step">3. AI Red Team (BULL vs BEAR)</div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-step">4. 3-Lens Recommendations</div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-step highlight">5. Human Judgement Log</div>
+                    </div>
+
+                    <h3>Design Philosophy</h3>
+                    <p>Kokpit ini sengaja didesain menggunakan gaya <em>industrial grunge</em>. Tidak ada warna-warna soft atau rounded borders berlebih; ini adalah instrumen berat untuk keputusan berisiko tinggi.</p>
+                </div>
+
+                <!-- TAB: Metrics & PRD Content -->
+                <div class="tab-content" id="tab-metrics">
+                    <h3>Product Spec (PRD v8)</h3>
+                    <p>Sistem dirancang untuk mencegah AI memberikan keputusan absolut. AI bertindak sebagai analis red-team, keputusan eksekusi modal wajib di tangan manusia.</p>
+                    
+                    <h3>Key Product Metrics (KPIs)</h3>
+                    <ul>
+                        <li><strong>Analytical Speedup:</strong> Waktu sintesis berkurang dari ~8 jam ke <10 detik.</li>
+                        <li><strong>Bias Neutralization:</strong> Red Team otonom dipaksa menyajikan skenario terburuk (Bear) &amp; terbaik (Bull) seimbang.</li>
+                        <li><strong>Auditability:</strong> Setiap keputusan disimpan dalam <em>Human Decision Log</em> untuk dievaluasi di akhir kuartal.</li>
+                    </ul>
+
+                    <h3>Feature Checklist</h3>
+                    <div class="checklist-item done">✔ Tri-Vertical Financial Calculators</div>
+                    <div class="checklist-item done">✔ Split-Panel Red Team Debate Simulator</div>
+                    <div class="checklist-item done">✔ 3-Lens Advisory (Operator, Risk, Predator)</div>
+                    <div class="checklist-item done">✔ Permanent Decision Logger (LocalStorage)</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN DASHBOARD: THE INVESTMENT COCKPIT -->
+        <main class="main-cockpit">
+            
+            <!-- SECTION 1: HEADER & SYSTEM STATUS CONTROL -->
+            <header class="cockpit-header">
+                <div class="branding">
+                    <span class="system-tag">JP-INVEST SYSTEM V2.0</span>
+                    <span class="status-light-container">
+                        <span class="status-light blinking-green"></span>
+                        <span class="status-text">COCKPIT ACTIVE</span>
+                    </span>
+                </div>
+                
+                <!-- Asset Vertical Selector Controls -->
+                <div class="vertical-selector-group">
+                    <button class="selector-btn active" data-vertical="stocks">
+                        <span class="btn-num">[01]</span> STOCKS (EQUITIES)
+                    </button>
+                    <button class="selector-btn" data-vertical="startups">
+                        <span class="btn-num">[02]</span> STARTUP / VC METRICS
+                    </button>
+                    <button class="selector-btn" data-vertical="conventional">
+                        <span class="btn-num">[03]</span> CONVENTIONAL BIZ
+                    </button>
+                </div>
+            </header>
+
+            <!-- SECTION 2: MIDDLE ROW (SANDBOX INPUTS & CHARTS) -->
+            <div class="middle-row-grid">
+                
+                <!-- INPUT CONTROLS -->
+                <section class="panel input-controls-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">PARAMETER INPUT SANDBOX</span>
+                        <span class="panel-subtitle" id="selected-vertical-label">Listed Equities Ingestion</span>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Fast Preset Buttons -->
+                        <div class="preset-section">
+                            <span class="label-text">Load Preset:</span>
+                            <div class="preset-buttons" id="preset-container">
+                                <!-- Generated Dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Parameter Inputs (Generated Dynamically) -->
+                        <form id="parameter-form" class="parameter-form">
+                            <!-- Injected by app.js -->
+                        </form>
+                    </div>
+                </section>
+
+                <!-- QUANTITATIVE VISUALIZER -->
+                <section class="panel chart-visualizer-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">QUANTITATIVE VISUALIZER (RETRO CHART)</span>
+                        <span class="panel-subtitle">Interactive Calculation Engine Output</span>
+                    </div>
+                    <div class="panel-body centered-content">
+                        <!-- Retro Chart Container -->
+                        <div class="chart-wrapper">
+                            <svg id="retro-chart" width="100%" height="100%" viewBox="0 0 500 240">
+                                <!-- Rendered dynamically by app.js -->
+                            </svg>
+                        </div>
+                        <div class="chart-stats-grid" id="chart-stats">
+                            <!-- Injected by app.js -->
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- SECTION 3: BOTTOM ROW (DEBATE PANEL & ADVISORY) -->
+            <div class="bottom-row-grid">
+                
+                <!-- RETRO AGENT DEBATE PANEL -->
+                <section class="panel debate-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">MULTI-AGENT RED TEAM DEBATE</span>
+                        <div class="debate-control-header">
+                            <span class="confidence-indicator">Confidence Score: <strong id="confidence-score">82%</strong></span>
+                            <button id="run-debate-btn" class="run-btn">RE-RUN DEBATE</button>
+                        </div>
+                    </div>
+                    <div class="panel-body split-debate-logs">
+                        <!-- Bull Column -->
+                        <div class="debate-col bull-col">
+                            <div class="col-title bull-text">▲ BULL ADVOCATE</div>
+                            <div class="log-stream scrollable" id="bull-log-stream">
+                                <!-- Typewriter simulation -->
+                            </div>
+                        </div>
+                        <!-- Bear Column -->
+                        <div class="debate-col bear-col">
+                            <div class="col-title bear-text">▼ BEAR ADVERSARY</div>
+                            <div class="log-stream scrollable" id="bear-log-stream">
+                                <!-- Typewriter simulation -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ADVISORY BOARD & DECISION LOGGER -->
+                <section class="panel advisory-panel">
+                    <div class="panel-header warning-stripes">
+                        <span class="panel-title">THE ADVISORY BOARD LENSES</span>
+                        <span class="panel-subtitle">Three Scenario Lenses for Human Decision</span>
+                    </div>
+                    <div class="panel-body scrollable">
+                        <!-- Lenses Tabs -->
+                        <div class="lenses-tab-control">
+                            <button class="lens-tab active" data-lens="operator">OPERATOR LENS</button>
+                            <button class="lens-tab" data-lens="risk">RISK MANAGER LENS</button>
+                            <button class="lens-tab" data-lens="predator">PREDATOR LENS</button>
+                        </div>
+
+                        <!-- Active Lens Content -->
+                        <div class="lens-content-viewer" id="lens-viewer">
+                            <!-- Injected by app.js -->
+                        </div>
+
+                        <!-- Human Decision Logger Form -->
+                        <div class="decision-logger">
+                            <div class="logger-title">⚡ COMMIT HUMAN DECISION LOG</div>
+                            <form id="decision-log-form" class="decision-form">
+                                <div class="form-row">
+                                    <label for="decision-select">EXECUTIVE ACTION:</label>
+                                    <select id="decision-select" required>
+                                        <option value="APPROVE">APPROVE / SWING MODAL</option>
+                                        <option value="HOLD">HOLD / MONITOR STATE</option>
+                                        <option value="REJECT">REJECT OPPORTUNITY</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <label for="decision-notes">RATIONALE / METRIC TARGETS:</label>
+                                    <textarea id="decision-notes" rows="2" placeholder="Tulis alasan keputusan investor..." required></textarea>
+                                </div>
+                                <button type="submit" class="commit-btn">COMMIT TO LOCAL LEDGER</button>
+                            </form>
+                            <div class="decision-history">
+                                <div class="history-title">RECENT COMMITTED LEDGER ENTRIES:</div>
+                                <div class="history-list" id="ledger-history-list">
+                                    <!-- Loaded from LocalStorage -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Main Scripts (Loaded sequentially for direct local browser compatibility without HTTP server) -->
+    <script src="calculators.js"></script>
+    <script src="data.js"></script>
+    <script>
+// Globals will be resolved lazily in init()
+let dataset;
+let calcBEP, calcIRR, calcLTV, calcCAC, calcRunway, calcMOIC, calcPE, calcDCF, calcBlackScholes, formatIDR, formatNum;
+
+// ==========================================
+// STATE MANAGEMENT
+// ==========================================
+const state = {
+    activeVertical: 'stocks',      // 'stocks' | 'startups' | 'conventional'
+    activeAssetId: '',             // e.g., 'bbca'
+    activeAssetData: null,         // Pointer to dataset object
+    parameters: {},                // Live modified parameters from sliders
+    activeLens: 'operator',        // 'operator' | 'risk' | 'predator'
+    isSidebarCollapsed: false,
+    debateIntervals: []            // Store typing timeouts to clear on re-runs
+};
+
+// DOM Cache (Populated lazily in initDOM() to prevent null elements at parse-time)
+const DOM = {};
+
+function initDOM() {
+    DOM.sidebarPanel = document.getElementById('sidebar-panel');
+    DOM.toggleSidebar = document.getElementById('toggle-sidebar');
+    DOM.tabBtns = document.querySelectorAll('.tab-btn');
+    DOM.tabContents = document.querySelectorAll('.tab-content');
+    DOM.verticalBtns = document.querySelectorAll('.selector-btn');
+    DOM.selectedVerticalLabel = document.getElementById('selected-vertical-label');
+    DOM.presetContainer = document.getElementById('preset-container');
+    DOM.parameterForm = document.getElementById('parameter-form');
+    DOM.retroChart = document.getElementById('retro-chart');
+    DOM.chartStats = document.getElementById('chart-stats');
+    DOM.confidenceScore = document.getElementById('confidence-score');
+    DOM.runDebateBtn = document.getElementById('run-debate-btn');
+    DOM.bullLogStream = document.getElementById('bull-log-stream');
+    DOM.bearLogStream = document.getElementById('bear-log-stream');
+    DOM.lensTabs = document.querySelectorAll('.lens-tab');
+    DOM.lensViewer = document.getElementById('lens-viewer');
+    DOM.decisionForm = document.getElementById('decision-log-form');
+    DOM.decisionSelect = document.getElementById('decision-select');
+    DOM.decisionNotes = document.getElementById('decision-notes');
+    DOM.ledgerHistoryList = document.getElementById('ledger-history-list');
+}
+
+// ==========================================
+// INITIALIZATION
+// ==========================================
+function init() {
+    try {
+        console.log("JP-INVEST: Starting initialization...");
+        // Resolve globals safely
+        dataset = window.portfolioData;
+        if (!window.calculators) throw new Error("window.calculators is missing or undefined!");
+        if (!window.portfolioData) throw new Error("window.portfolioData is missing or undefined!");
+        
+        calcBEP = window.calculators.calcBEP;
+        calcIRR = window.calculators.calcIRR;
+        calcLTV = window.calculators.calcLTV;
+        calcCAC = window.calculators.calcCAC;
+        calcRunway = window.calculators.calcRunway;
+        calcMOIC = window.calculators.calcMOIC;
+        calcPE = window.calculators.calcPE;
+        calcDCF = window.calculators.calcDCF;
+        calcBlackScholes = window.calculators.calcBlackScholes;
+        formatIDR = window.calculators.formatIDR;
+        formatNum = window.calculators.formatNum;
+
+        initDOM();
+        initEventListeners();
+        // Load default vertical (stocks) and default asset (bbca)
+        loadVertical('stocks');
+        loadLedgerHistory();
+        console.log("JP-INVEST: Initialization completed successfully!");
+    } catch (err) {
+        console.error("JP-INVEST FATAL INIT ERROR:", err);
+        const errDiv = document.createElement('div');
+        errDiv.style.cssText = 'position:fixed; bottom:20px; left:20px; max-width:450px; background:#ef4444; color:#fff; padding:20px; z-index:99999; font-family:monospace; border:2px solid #000; box-shadow:0 4px 15px rgba(0,0,0,0.8); font-size:12px; line-height:1.5;';
+        errDiv.innerHTML = '<div style="font-weight:bold; font-size:14px; margin-bottom:8px; border-bottom:1px solid #fff; padding-bottom:4px; color:#000;">⚠️ JP-INVEST INIT EXCEPTION</div>' +
+                           '<strong>Error:</strong> ' + err.message + '<br>' +
+                           '<strong>Stack:</strong> <pre style="font-size:10px; margin-top:5px; white-space:pre-wrap; background:#7f1d1d; padding:8px; overflow-x:auto; max-height:150px;">' + err.stack + '</pre>';
+        document.body.appendChild(errDiv);
+    }
+}
+
+// Bulletproof loader checking if document is already loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+
+// ==========================================
+// EVENT LISTENERS
+// ==========================================
+function initEventListeners() {
+    // Sidebar Collapse
+    DOM.toggleSidebar.addEventListener('click', () => {
+        state.isSidebarCollapsed = !state.isSidebarCollapsed;
+        DOM.sidebarPanel.classList.toggle('collapsed', state.isSidebarCollapsed);
+        DOM.toggleSidebar.textContent = state.isSidebarCollapsed ? '▶' : '◀';
+        
+        // Handle floating toggle click
+        if (state.isSidebarCollapsed) {
+            const handle = document.createElement('div');
+            handle.id = 'sidebar-panel-floating-handle';
+            handle.style.cssText = `
+                position: absolute; top: 12px; left: 12px;
+                background: #1a1c22; border: 2px solid #2b2d35;
+                padding: 6px 12px; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+                font-weight: 700; font-size: 10px; color: #d97706; z-index: 100;
+                box-shadow: 0 2px 0 #000;
+            `;
+            handle.textContent = '◀ SPEC PANEL';
+            document.body.appendChild(handle);
+            
+            handle.addEventListener('click', () => {
+                state.isSidebarCollapsed = false;
+                DOM.sidebarPanel.classList.remove('collapsed');
+                DOM.toggleSidebar.textContent = '◀';
+                handle.remove();
+            });
+        } else {
+            const handle = document.getElementById('sidebar-panel-floating-handle');
+            if (handle) handle.remove();
+        }
+    });
+
+    // Sidebar Tabs (Case Study vs Specs)
+    DOM.tabBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const tabName = e.target.dataset.tab;
+            DOM.tabBtns.forEach(b => b.classList.remove('active'));
+            DOM.tabContents.forEach(c => c.classList.remove('active'));
+            
+            e.target.classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        });
+    });
+
+    // Vertical Selectors (Stocks / Startups / Conventional)
+    DOM.verticalBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            DOM.verticalBtns.forEach(b => b.classList.remove('active'));
+            const selectedBtn = e.target.closest('.selector-btn');
+            selectedBtn.classList.add('active');
+            loadVertical(selectedBtn.dataset.vertical);
+        });
+    });
+
+    // Run Debate manually
+    DOM.runDebateBtn.addEventListener('click', () => {
+        runDebateSimulation();
+    });
+
+    // Lens Tabs (Operator, Risk, Predator)
+    DOM.lensTabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            DOM.lensTabs.forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+            state.activeLens = e.target.dataset.lens;
+            renderAdvisoryLens();
+        });
+    });
+
+    // Decision Form Submit
+    DOM.decisionForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        commitDecision();
+    });
+}
+
+// ==========================================
+// VERTICAL AND PRESET CORE LOADER
+// ==========================================
+function loadVertical(vertical) {
+    state.activeVertical = vertical;
+    
+    // Update label subtitle
+    const labels = {
+        stocks: 'Listed Equities Ingestion Cockpit',
+        startups: 'VC Unit Economics & Runway Sandbox',
+        conventional: 'Conventional Business Capex & BEP Calculator'
+    };
+    DOM.selectedVerticalLabel.textContent = labels[vertical];
+    
+    // Load presets for this vertical
+    const presets = dataset[vertical];
+    renderPresets(presets);
+    
+    // Load first preset by default
+    if (presets && presets.length > 0) {
+        loadPreset(presets[0].id);
+    }
+}
+
+function renderPresets(presets) {
+    DOM.presetContainer.innerHTML = '';
+    presets.forEach(p => {
+        const btn = document.createElement('button');
+        btn.className = 'preset-btn';
+        btn.textContent = p.name.split(' (')[0]; // Short name
+        btn.dataset.id = p.id;
+        
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            loadPreset(e.target.dataset.id);
+        });
+        
+        DOM.presetContainer.appendChild(btn);
+    });
+    
+    // Mark first as active
+    if (DOM.presetContainer.firstChild) {
+        DOM.presetContainer.firstChild.classList.add('active');
+    }
+}
+
+function loadPreset(assetId) {
+    state.activeAssetId = assetId;
+    const assets = dataset[state.activeVertical];
+    const asset = assets.find(a => a.id === assetId);
+    
+    if (asset) {
+        state.activeAssetData = asset;
+        // Deep copy default parameters
+        state.parameters = { ...asset.parameters };
+        
+        // Render parameter form fields
+        renderParameterFields();
+        
+        // Run Engine calculations & redraw charts
+        runCalculations();
+        
+        // Simulate Agent Debate
+        runDebateSimulation();
+        
+        // Render Lenses
+        renderAdvisoryLens();
+    }
+}
+
+// ==========================================
+// PARAMETER FORM BUILDER
+// ==========================================
+function renderParameterFields() {
+    DOM.parameterForm.innerHTML = '';
+    const fields = getFieldsForVertical();
+    
+    fields.forEach(f => {
+        const group = document.createElement('div');
+        group.className = 'form-group';
+        
+        const labelRow = document.createElement('div');
+        labelRow.className = 'form-label-row';
+        
+        const label = document.createElement('span');
+        label.className = 'field-label';
+        label.textContent = f.label;
+        
+        const valSpan = document.createElement('span');
+        valSpan.className = 'field-value';
+        valSpan.id = `val-${f.key}`;
+        valSpan.textContent = formatValue(state.parameters[f.key], f.type);
+        
+        labelRow.appendChild(label);
+        labelRow.appendChild(valSpan);
+        
+        const input = document.createElement('input');
+        input.type = 'range';
+        input.className = 'slider-input';
+        input.min = f.min;
+        input.max = f.max;
+        input.step = f.step;
+        input.value = state.parameters[f.key];
+        
+        // Bind slider changes
+        input.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            state.parameters[f.key] = val;
+            valSpan.textContent = formatValue(val, f.type);
+            
+            // Recalculate
+            runCalculations();
+        });
+        
+        group.appendChild(labelRow);
+        group.appendChild(input);
+        DOM.parameterForm.appendChild(group);
+    });
+}
+
+function getFieldsForVertical() {
+    if (state.activeVertical === 'stocks') {
+        return [
+            { key: 'price', label: 'Share Price (IDR)', min: 100, max: 20000, step: 100, type: 'currency' },
+            { key: 'eps', label: 'Earnings Per Share (EPS)', min: 10, max: 2000, step: 10, type: 'currency' },
+            { key: 'roe', label: 'Return on Equity (ROE %)', min: 1, max: 50, step: 0.5, type: 'percent' },
+            { key: 'discountRate', label: 'Discount Rate %', min: 0.05, max: 0.25, step: 0.01, type: 'percent_raw' },
+            { key: 'terminalMult', label: 'Terminal DCF Multiple', min: 5, max: 25, step: 1, type: 'number' },
+            { key: 'invested', label: 'Invested / Buy Price', min: 100, max: 20000, step: 100, type: 'currency' }
+        ];
+    } else if (state.activeVertical === 'startups') {
+        return [
+            { key: 'cash', label: 'Cash Balance', min: 1e9, max: 5e10, step: 5e8, type: 'currency' },
+            { key: 'burn', label: 'Monthly Cash Burn', min: 1e8, max: 5e9, step: 5e7, type: 'currency' },
+            { key: 'cac', label: 'CAC (Acquisition Cost)', min: 50000, max: 5000000, step: 50000, type: 'currency' },
+            { key: 'arpu', label: 'Monthly ARPU', min: 10000, max: 2000000, step: 10000, type: 'currency' },
+            { key: 'margin', label: 'Gross Profit Margin %', min: 0.1, max: 0.95, step: 0.05, type: 'percent_raw' },
+            { key: 'churn', label: 'Monthly Churn Rate %', min: 0.01, max: 0.15, step: 0.005, type: 'percent_raw' }
+        ];
+    } else { // conventional
+        return [
+            { key: 'invested', label: 'Initial CapEx Investment', min: 5e7, max: 2e9, step: 2.5e7, type: 'currency' },
+            { key: 'fixed', label: 'Annual Fixed Cost', min: 2e7, max: 1e9, step: 1e7, type: 'currency' },
+            { key: 'price', label: 'Avg Customer Billing / Unit', min: 5000, max: 500000, step: 2000, type: 'currency' },
+            { key: 'variable', label: 'Variable Cost / Unit (COGS)', min: 1000, max: 200000, step: 1000, type: 'currency' }
+        ];
+    }
+}
+
+function formatValue(val, type) {
+    if (type === 'currency') return formatIDR(val);
+    if (type === 'percent') return `${val}%`;
+    if (type === 'percent_raw') return `${(val * 100).toFixed(1)}%`;
+    return formatNum(val, 0);
+}
+
+// ==========================================
+// QUANTITATIVE ENGINES AND CALCULATIONS
+// ==========================================
+function runCalculations() {
+    if (state.activeVertical === 'stocks') {
+        runStocksEngine();
+    } else if (state.activeVertical === 'startups') {
+        runStartupsEngine();
+    } else {
+        runConventionalEngine();
+    }
+}
+
+function runStocksEngine() {
+    const p = state.parameters;
+    // 1. Calculate P/E
+    const peRes = calcPE(p.price, p.eps, p.pb, p.roe);
+    // 2. Calculate DCF
+    // Calculate simulated cashflows based on seed data but scaled by modified EPS
+    const baseCFs = state.activeAssetData.parameters.cashflows;
+    const baseEPS = state.activeAssetData.parameters.eps;
+    const multiplier = p.eps / baseEPS;
+    const scaledCFs = baseCFs.map(cf => cf * multiplier);
+    
+    const dcfRes = calcDCF(scaledCFs, p.discountRate, p.terminalMult, p.invested);
+
+    // Update stats grid
+    DOM.chartStats.innerHTML = `
+        <div class="stat-box">
+            <div class="stat-lbl">Implied P/E Ratio</div>
+            <div class="stat-val">${formatNum(peRes.pe, 1)}x</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-lbl">Intrinsic Value (NPV)</div>
+            <div class="stat-val">${formatNum(dcfRes.totalNPV, 0)}</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-lbl">Margin of Safety</div>
+            <div class="stat-val ${dcfRes.totalNPV > p.invested ? 'bull-text' : 'bear-text'}">${dcfRes.marginOfSafety ? dcfRes.marginOfSafety.toFixed(1) + '%' : 'N/A'}</div>
+        </div>
+    `;
+
+    // Render chart: DCF Bar Chart Comparison
+    drawStocksChart(scaledCFs, dcfRes.discounted, p.invested, dcfRes.totalNPV);
+}
+
+function runStartupsEngine() {
+    const p = state.parameters;
+    // 1. Calculate LTV & CAC
+    const ltvRes = calcLTV(p.arpu, p.margin, p.churn, p.cac);
+    // 2. Calculate CAC Payback
+    const cacRes = calcCAC(p.cac, p.arpu, p.margin);
+    // 3. Calculate Runway
+    const runwayRes = calcRunway(p.cash, p.burn);
+
+    // Update stats grid
+    DOM.chartStats.innerHTML = `
+        <div class="stat-box">
+            <div class="stat-lbl">LTV:CAC Ratio</div>
+            <div class="stat-val">${ltvRes.ltvCacRatio ? ltvRes.ltvCacRatio.toFixed(1) + 'x' : 'N/A'}</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-lbl">Payback Period</div>
+            <div class="stat-val">${formatNum(cacRes.paybackMonths, 1)} Months</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-lbl">Cash Runway</div>
+            <div class="stat-val ${runwayRes.runwayMonths < 12 ? 'bear-text' : runwayRes.runwayMonths >= 18 ? 'bull-text' : 'warning-text'}">${runwayRes.runwayMonths.toFixed(1)} Months</div>
+        </div>
+    `;
+
+    // Render chart: Runway burn-down chart
+    drawStartupsChart(p.cash, p.burn);
+}
+
+function runConventionalEngine() {
+    const p = state.parameters;
+    // 1. Calculate BEP
+    const bepRes = calcBEP(p.fixed, p.price, p.variable);
+    
+    // 2. Estimate simple 5-year IRR based on cashflows
+    // Assume revenue generated is equal to double the BEP units in year 1, growing 10% YoY.
+    const year1Units = bepRes.bepUnits * 1.5;
+    const cashflows = [-p.invested];
+    for (let t = 1; t <= 5; t++) {
+        const units = year1Units * Math.pow(1.1, t - 1);
+        const revenue = units * p.price;
+        const varCosts = units * p.variable;
+        const profit = revenue - varCosts - p.fixed;
+        cashflows.push(profit);
+    }
+    const irrRes = calcIRR(cashflows);
+
+    // Update stats grid
+    DOM.chartStats.innerHTML = `
+        <div class="stat-box">
+            <div class="stat-lbl">BEP Target (Volume)</div>
+            <div class="stat-val">${formatNum(bepRes.bepUnits, 0)} Units</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-lbl">BEP Revenue (Annual)</div>
+            <div class="stat-val">${formatIDR(bepRes.bepRevenue)}</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-lbl">Projected IRR (5Y)</div>
+            <div class="stat-val ${irrRes.irr > 20 ? 'bull-text' : 'bear-text'}">${formatNum(irrRes.irr, 1)}%</div>
+        </div>
+    `;
+
+    // Render chart: Break-Even Crossing Chart
+    drawConventionalChart(bepRes);
+}
+
+// ==========================================
+// RETRO SVG CHART DRAWING ENGINES
+// ==========================================
+
+function drawStocksChart(cfs, discounted, invested, npv) {
+    const svg = DOM.retroChart;
+    svg.innerHTML = '';
+    
+    const width = 500;
+    const height = 240;
+    const padding = { top: 30, right: 30, bottom: 40, left: 60 };
+    
+    // Draw Axis lines
+    const lineX = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    lineX.setAttribute('x1', padding.left);
+    lineX.setAttribute('y1', height - padding.bottom);
+    lineX.setAttribute('x2', width - padding.right);
+    lineX.setAttribute('y2', height - padding.bottom);
+    lineX.setAttribute('class', 'chart-axis-line');
+    svg.appendChild(lineX);
+
+    const lineY = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    lineY.setAttribute('x1', padding.left);
+    lineY.setAttribute('y1', padding.top);
+    lineY.setAttribute('x2', padding.left);
+    lineY.setAttribute('y2', height - padding.bottom);
+    lineY.setAttribute('class', 'chart-axis-line');
+    svg.appendChild(lineY);
+
+    // Calculate scaling
+    const maxVal = Math.max(...cfs) * 1.1;
+    
+    const scaleX = (index) => padding.left + (index * (width - padding.left - padding.right) / 5);
+    const scaleY = (val) => height - padding.bottom - (val * (height - padding.top - padding.bottom) / maxVal);
+    
+    // Draw 5-year cashflows (Bar chart style)
+    cfs.forEach((cf, idx) => {
+        const x = scaleX(idx) + 15;
+        const y = scaleY(cf);
+        const barW = 20;
+        const barH = height - padding.bottom - y;
+        
+        // Raw Cashflow
+        const rectRaw = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rectRaw.setAttribute('x', x);
+        rectRaw.setAttribute('y', y);
+        rectRaw.setAttribute('width', barW);
+        rectRaw.setAttribute('height', barH);
+        rectRaw.setAttribute('fill', '#475569');
+        rectRaw.setAttribute('opacity', '0.4');
+        svg.appendChild(rectRaw);
+
+        // Discounted Cashflow (smaller bright cyan bar inside)
+        const yDisc = scaleY(discounted[idx]);
+        const barHDisc = height - padding.bottom - yDisc;
+        const rectDisc = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rectDisc.setAttribute('x', x + 4);
+        rectDisc.setAttribute('y', yDisc);
+        rectDisc.setAttribute('width', barW - 8);
+        rectDisc.setAttribute('height', barHDisc);
+        rectDisc.setAttribute('fill', 'var(--cyan-active)');
+        svg.appendChild(rectDisc);
+        
+        // X-Axis Labels
+        const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        lbl.setAttribute('x', x + barW / 2);
+        lbl.setAttribute('y', height - padding.bottom + 15);
+        lbl.setAttribute('class', 'chart-text');
+        lbl.setAttribute('text-anchor', 'middle');
+        lbl.textContent = `Y${idx + 1}`;
+        svg.appendChild(lbl);
+    });
+
+    // Draw horizontal investment hurdle line
+    const yHurdle = scaleY(invested / 5); // display relative margin
+    if (yHurdle > padding.top && yHurdle < height - padding.bottom) {
+        const hurdle = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        hurdle.setAttribute('x1', padding.left);
+        hurdle.setAttribute('y1', yHurdle);
+        hurdle.setAttribute('x2', width - padding.right);
+        hurdle.setAttribute('y2', yHurdle);
+        hurdle.setAttribute('stroke', 'var(--yellow-caution)');
+        hurdle.setAttribute('stroke-dasharray', '3 3');
+        svg.appendChild(hurdle);
+    }
+    
+    // Label Y-Axis Max
+    const yMaxLbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    yMaxLbl.setAttribute('x', padding.left - 8);
+    yMaxLbl.setAttribute('y', padding.top + 4);
+    yMaxLbl.setAttribute('class', 'chart-text');
+    yMaxLbl.setAttribute('text-anchor', 'end');
+    yMaxLbl.textContent = formatIDR(maxVal).split(' ')[1]; // only unit
+    svg.appendChild(yMaxLbl);
+
+    // Title indicator
+    const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    title.setAttribute('x', padding.left + 10);
+    title.setAttribute('y', padding.top - 10);
+    title.setAttribute('fill', 'var(--cyan-active)');
+    title.setAttribute('font-size', '8px');
+    title.textContent = 'NEON = DISCOUNTED CASH FLOWS  |  GREY = NOMINAL CASH FLOWS';
+    svg.appendChild(title);
+}
+
+function drawStartupsChart(cash, burn) {
+    const svg = DOM.retroChart;
+    svg.innerHTML = '';
+    
+    const width = 500;
+    const height = 240;
+    const padding = { top: 30, right: 30, bottom: 40, left: 65 };
+    
+    const runwayMonths = cash / burn;
+    const showMonths = Math.max(18, Math.ceil(runwayMonths * 1.2)); // Show up to 1.2x runway or 18 months
+
+    // Scales
+    const scaleX = (m) => padding.left + (m * (width - padding.left - padding.right) / showMonths);
+    const scaleY = (c) => height - padding.bottom - (c * (height - padding.top - padding.bottom) / cash);
+
+    // Draw Axis lines
+    const lineX = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    lineX.setAttribute('x1', padding.left);
+    lineX.setAttribute('y1', height - padding.bottom);
+    lineX.setAttribute('x2', width - padding.right);
+    lineX.setAttribute('y2', height - padding.bottom);
+    lineX.setAttribute('class', 'chart-axis-line');
+    svg.appendChild(lineX);
+
+    const lineY = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    lineY.setAttribute('x1', padding.left);
+    lineY.setAttribute('y1', padding.top);
+    lineY.setAttribute('x2', padding.left);
+    lineY.setAttribute('y2', height - padding.bottom);
+    lineY.setAttribute('class', 'chart-axis-line');
+    svg.appendChild(lineY);
+
+    // Generate Path points for Cash depletion curve
+    let pathPoints = [];
+    for (let m = 0; m <= showMonths; m++) {
+        const remainingCash = Math.max(0, cash - (burn * m));
+        pathPoints.push(`${scaleX(m)},${scaleY(remainingCash)}`);
+    }
+
+    // Draw Cash Line
+    const pathLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    pathLine.setAttribute('d', `M ${pathPoints.join(' L ')}`);
+    pathLine.setAttribute('stroke', runwayMonths < 12 ? 'var(--bear-red)' : 'var(--cyan-active)');
+    pathLine.setAttribute('stroke-width', '2.5');
+    pathLine.setAttribute('fill', 'none');
+    svg.appendChild(pathLine);
+
+    // Shading/Area under cash line
+    const areaPoints = [
+        `${scaleX(0)},${height - padding.bottom}`,
+        ...pathPoints,
+        `${scaleX(Math.min(showMonths, runwayMonths))},${height - padding.bottom}`
+    ];
+    const pathArea = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    pathArea.setAttribute('d', `M ${areaPoints.join(' L ')} Z`);
+    pathArea.setAttribute('fill', runwayMonths < 12 ? 'var(--bear-red-dim)' : 'var(--cyan-active-dim)');
+    pathArea.setAttribute('opacity', '0.3');
+    svg.appendChild(pathArea);
+
+    // Vertical line at Cash-out Month
+    if (runwayMonths <= showMonths) {
+        const xCO = scaleX(runwayMonths);
+        const coLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        coLine.setAttribute('x1', xCO);
+        coLine.setAttribute('y1', padding.top);
+        coLine.setAttribute('x2', xCO);
+        coLine.setAttribute('y2', height - padding.bottom);
+        coLine.setAttribute('stroke', 'var(--bear-red)');
+        coLine.setAttribute('stroke-dasharray', '4 4');
+        svg.appendChild(coLine);
+
+        // Warning sign
+        const warning = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        warning.setAttribute('x', xCO + 4);
+        warning.setAttribute('y', padding.top + 20);
+        warning.setAttribute('fill', 'var(--bear-red)');
+        warning.setAttribute('font-size', '8px');
+        warning.setAttribute('font-weight', '700');
+        warning.textContent = `CASH-OUT: M${runwayMonths.toFixed(1)}`;
+        svg.appendChild(warning);
+    }
+
+    // Labeling
+    const startCashLbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    startCashLbl.setAttribute('x', padding.left - 8);
+    startCashLbl.setAttribute('y', padding.top + 5);
+    startCashLbl.setAttribute('class', 'chart-text');
+    startCashLbl.setAttribute('text-anchor', 'end');
+    startCashLbl.textContent = formatIDR(cash).split(' ')[1];
+    svg.appendChild(startCashLbl);
+
+    const endMonthLbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    endMonthLbl.setAttribute('x', width - padding.right);
+    endMonthLbl.setAttribute('y', height - padding.bottom + 15);
+    endMonthLbl.setAttribute('class', 'chart-text');
+    endMonthLbl.setAttribute('text-anchor', 'end');
+    endMonthLbl.textContent = `Month ${showMonths}`;
+    svg.appendChild(endMonthLbl);
+
+    const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    title.setAttribute('x', padding.left + 10);
+    title.setAttribute('y', padding.top - 10);
+    title.setAttribute('fill', 'var(--cyan-active)');
+    title.setAttribute('font-size', '8px');
+    title.textContent = 'MONTHLY CASH DEPLETION ROADMAP (RUNWAY STRESS-TEST)';
+    svg.appendChild(title);
+}
+
+function drawConventionalChart(bep) {
+    const svg = DOM.retroChart;
+    svg.innerHTML = '';
+
+    const width = 500;
+    const height = 240;
+    const padding = { top: 30, right: 30, bottom: 40, left: 60 };
+
+    const maxUnits = bep.bepUnits * 2; // draw up to double the BEP units
+    const maxRev = maxUnits * bep.price;
+
+    const scaleX = (u) => padding.left + (u * (width - padding.left - padding.right) / maxUnits);
+    const scaleY = (val) => height - padding.bottom - (val * (height - padding.top - padding.bottom) / maxRev);
+
+    // Draw Axis lines
+    const lineX = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    lineX.setAttribute('x1', padding.left);
+    lineX.setAttribute('y1', height - padding.bottom);
+    lineX.setAttribute('x2', width - padding.right);
+    lineX.setAttribute('y2', height - padding.bottom);
+    lineX.setAttribute('class', 'chart-axis-line');
+    svg.appendChild(lineX);
+
+    const lineY = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    lineY.setAttribute('x1', padding.left);
+    lineY.setAttribute('y1', padding.top);
+    lineY.setAttribute('x2', padding.left);
+    lineY.setAttribute('y2', height - padding.bottom);
+    lineY.setAttribute('class', 'chart-axis-line');
+    svg.appendChild(lineY);
+
+    // 1. Total Cost Line (Fixed + Variable * units)
+    const costPt1 = `${scaleX(0)},${scaleY(bep.fixed)}`;
+    const costPt2 = `${scaleX(maxUnits)},${scaleY(bep.fixed + bep.variable * maxUnits)}`;
+    const lineCost = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    lineCost.setAttribute('x1', scaleX(0));
+    lineCost.setAttribute('y1', scaleY(bep.fixed));
+    lineCost.setAttribute('x2', scaleX(maxUnits));
+    lineCost.setAttribute('y2', scaleY(bep.fixed + bep.variable * maxUnits));
+    lineCost.setAttribute('stroke', 'var(--bear-red)');
+    lineCost.setAttribute('stroke-width', '2');
+    svg.appendChild(lineCost);
+
+    // 2. Total Revenue Line (Price * units)
+    const revPt1 = `${scaleX(0)},${scaleY(0)}`;
+    const revPt2 = `${scaleX(maxUnits)},${scaleY(maxRev)}`;
+    const lineRev = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    lineRev.setAttribute('x1', scaleX(0));
+    lineRev.setAttribute('y1', scaleY(0));
+    lineRev.setAttribute('x2', scaleX(maxUnits));
+    lineRev.setAttribute('y2', scaleY(maxRev));
+    lineRev.setAttribute('stroke', 'var(--bull-green)');
+    lineRev.setAttribute('stroke-width', '2');
+    svg.appendChild(lineRev);
+
+    // Highlight BEP Crossing Point
+    const xBEP = scaleX(bep.bepUnits);
+    const yBEP = scaleY(bep.bepRevenue);
+
+    // Vertical line to X axis
+    const vBEP = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    vBEP.setAttribute('x1', xBEP);
+    vBEP.setAttribute('y1', yBEP);
+    vBEP.setAttribute('x2', xBEP);
+    vBEP.setAttribute('y2', height - padding.bottom);
+    vBEP.setAttribute('stroke', '#555');
+    vBEP.setAttribute('stroke-dasharray', '2 2');
+    svg.appendChild(vBEP);
+
+    // Horizontal line to Y axis
+    const hBEP = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    hBEP.setAttribute('x1', padding.left);
+    hBEP.setAttribute('y1', yBEP);
+    hBEP.setAttribute('x2', xBEP);
+    hBEP.setAttribute('y2', yBEP);
+    hBEP.setAttribute('stroke', '#555');
+    hBEP.setAttribute('stroke-dasharray', '2 2');
+    svg.appendChild(hBEP);
+
+    // BEP dot
+    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    dot.setAttribute('cx', xBEP);
+    dot.setAttribute('cy', yBEP);
+    dot.setAttribute('r', '5');
+    dot.setAttribute('fill', 'var(--yellow-caution)');
+    svg.appendChild(dot);
+
+    // Shade areas (Loss Area left of BEP, Profit Area right of BEP)
+    const lossPoly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    lossPoly.setAttribute('points', `${scaleX(0)},${scaleY(bep.fixed)} ${xBEP},${yBEP} ${scaleX(0)},${scaleY(0)}`);
+    lossPoly.setAttribute('class', 'chart-area-loss');
+    svg.appendChild(lossPoly);
+
+    const profitPoly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    profitPoly.setAttribute('points', `${xBEP},${yBEP} ${scaleX(maxUnits)},${scaleY(maxRev)} ${scaleX(maxUnits)},${scaleY(bep.fixed + bep.variable * maxUnits)}`);
+    profitPoly.setAttribute('class', 'chart-area-profit');
+    svg.appendChild(profitPoly);
+
+    // Labels
+    const bepUnitsLbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    bepUnitsLbl.setAttribute('x', xBEP);
+    bepUnitsLbl.setAttribute('y', height - padding.bottom + 15);
+    bepUnitsLbl.setAttribute('class', 'chart-text');
+    bepUnitsLbl.setAttribute('text-anchor', 'middle');
+    bepUnitsLbl.textContent = `${formatNum(bep.bepUnits, 0)} Units (BEP)`;
+    svg.appendChild(bepUnitsLbl);
+
+    const bepRevLbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    bepRevLbl.setAttribute('x', padding.left - 8);
+    bepRevLbl.setAttribute('y', yBEP + 3);
+    bepRevLbl.setAttribute('class', 'chart-text');
+    bepRevLbl.setAttribute('text-anchor', 'end');
+    bepRevLbl.textContent = formatIDR(bep.bepRevenue).split(' ')[1];
+    svg.appendChild(bepRevLbl);
+
+    // Title indicator
+    const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    title.setAttribute('x', padding.left + 10);
+    title.setAttribute('y', padding.top - 10);
+    title.setAttribute('fill', 'var(--yellow-caution)');
+    title.setAttribute('font-size', '8px');
+    title.textContent = 'BREAK-EVEN CROSSING CHART (GREEN = REVENUE  |  RED = TOTAL COST)';
+    svg.appendChild(title);
+}
+
+// ==========================================
+// AGENT DEBATE TERMINAL TYPEWRITER
+// ==========================================
+function runDebateSimulation() {
+    // Clear any active typing intervals
+    state.debateIntervals.forEach(clearTimeout);
+    state.debateIntervals = [];
+
+    // Clear output panels
+    DOM.bullLogStream.innerHTML = '';
+    DOM.bearLogStream.innerHTML = '';
+
+    const asset = state.activeAssetData;
+    if (!asset || !asset.debate) return;
+
+    // Set confidence score
+    DOM.confidenceScore.textContent = `${asset.debate.confidence}%`;
+
+    // Type out Bull lines, then Bear lines sequentially to make it feel like a live conversation stream
+    const bullLines = asset.debate.bull;
+    const bearLines = asset.debate.bear;
+
+    let delay = 300;
+
+    // Simulate Agent Ingestion log header
+    writeLogLine(DOM.bullLogStream, "System", "INGESTING PRESETS & GENERATING THESIS...", "system");
+    writeLogLine(DOM.bearLogStream, "System", "SPAWNING RED-TEAM ADVERSARY...", "system");
+
+    bullLines.forEach((line, index) => {
+        const timeoutId = setTimeout(() => {
+            writeLogLine(DOM.bullLogStream, line.agent, line.text, "bull");
+        }, delay);
+        state.debateIntervals.push(timeoutId);
+        delay += 1200; // time offset between lines
+    });
+
+    delay = 800; // offset Bear to interleave it
+    bearLines.forEach((line, index) => {
+        const timeoutId = setTimeout(() => {
+            writeLogLine(DOM.bearLogStream, line.agent, line.text, "bear");
+        }, delay);
+        state.debateIntervals.push(timeoutId);
+        delay += 1300;
+    });
+}
+
+function writeLogLine(container, agent, text, type) {
+    const entry = document.createElement('div');
+    entry.className = `log-entry ${type}-entry`;
+    
+    const agentSpan = document.createElement('div');
+    agentSpan.className = 'log-agent';
+    
+    if (type === 'bull') {
+        agentSpan.innerHTML = `▲ <span class="bull-text">${agent}</span>`;
+    } else if (type === 'bear') {
+        agentSpan.innerHTML = `▼ <span class="bear-text">${agent}</span>`;
+    } else {
+        agentSpan.innerHTML = `⚙ <span style="color:#64748b">${agent}</span>`;
+    }
+    
+    const textSpan = document.createElement('div');
+    textSpan.className = 'log-text';
+    
+    entry.appendChild(agentSpan);
+    entry.appendChild(textSpan);
+    container.appendChild(entry);
+    
+    // Auto-scroll container to bottom
+    container.scrollTop = container.scrollHeight;
+
+    // Character typewriter effect
+    let charIdx = 0;
+    function typeChar() {
+        if (charIdx < text.length) {
+            textSpan.textContent += text.charAt(charIdx);
+            charIdx++;
+            container.scrollTop = container.scrollHeight;
+            const t = setTimeout(typeChar, 15);
+            state.debateIntervals.push(t);
+        }
+    }
+    typeChar();
+}
+
+// ==========================================
+// ADVISORY LENSES VIEWER
+// ==========================================
+function renderAdvisoryLens() {
+    const asset = state.activeAssetData;
+    if (!asset || !asset.advisory) return;
+
+    const lensData = asset.advisory[state.activeLens];
+    if (lensData) {
+        DOM.lensViewer.innerHTML = `
+            <div class="lens-scenario-title">${lensData.title}</div>
+            <div class="lens-scenario-text">${lensData.text}</div>
+        `;
+    }
+}
+
+// Safe LocalStorage Wrapper with Memory Fallback to prevent file:// protocol security crashes
+const storage = {
+    _fallbackMemory: [],
+    getHistory() {
+        try {
+            const data = localStorage.getItem('jp_invest_ledger');
+            return data ? JSON.parse(data) : [];
+        } catch (e) {
+            console.warn("localStorage is not accessible (e.g. strict file:// security settings). Falling back to in-memory database.", e);
+            return this._fallbackMemory;
+        }
+    },
+    saveHistory(history) {
+        try {
+            localStorage.setItem('jp_invest_ledger', JSON.stringify(history));
+        } catch (e) {
+            console.warn("localStorage write blocked. Saving to in-memory database only.", e);
+            this._fallbackMemory = history;
+        }
+    }
+};
+
+function commitDecision() {
+    const action = DOM.decisionSelect.value;
+    const notes = DOM.decisionNotes.value.trim();
+    const assetName = state.activeAssetData ? state.activeAssetData.name : 'Unknown Asset';
+    
+    if (!notes) return;
+
+    const newEntry = {
+        id: Date.now(),
+        assetName: assetName,
+        vertical: state.activeVertical,
+        action: action,
+        notes: notes,
+        timestamp: new Date().toLocaleString('id-ID')
+    };
+
+    // Save to safe storage
+    const currentHistory = storage.getHistory();
+    currentHistory.unshift(newEntry); // Prepend to show newest first
+    storage.saveHistory(currentHistory);
+
+    // Clear Form inputs
+    DOM.decisionNotes.value = '';
+
+    // Reload UI
+    loadLedgerHistory();
+}
+
+// Global decision logging loader
+function loadLedgerHistory() {
+    DOM.ledgerHistoryList.innerHTML = '';
+    const currentHistory = storage.getHistory();
+    
+    if (currentHistory.length === 0) {
+        DOM.ledgerHistoryList.innerHTML = `<div style="color:#475569; font-size:10px; padding: 4px;">Ledger is empty. No committed actions recorded.</div>`;
+        return;
+    }
+
+    currentHistory.forEach(item => {
+        const div = document.createElement('div');
+        div.className = `ledger-item ${item.action}`;
+        
+        div.innerHTML = `
+            <div class="ledger-header">
+                <span class="ledger-asset">${item.assetName}</span>
+                <span class="ledger-action ${item.action}-text">${item.action}</span>
+            </div>
+            <div class="ledger-notes">"${item.notes}"</div>
+            <div class="ledger-timestamp">${item.timestamp}</div>
+        `;
+        DOM.ledgerHistoryList.appendChild(div);
+    });
+}
+
+</script>
+</body>
+</html>
+
