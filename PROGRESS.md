@@ -1,53 +1,56 @@
-# Progress Tracker — AI PM Portfolio Demo
+# Progress Tracker — AI Investment Workspace
 
-**Goal:** A portfolio demo positioning Johannes Purba as an **AI Product Manager** for startup job applications.
-**Live:** https://demo-vercel-nu-peach.vercel.app/ · **Repo:** github.com/pojurb/demo1 · **Deploy:** Vercel (root dir = `web`, auto-deploy on push to `main`)
+**Goal:** Turn the investment-cockpit concept into a real, production-ready **BYOK AI analysis workspace**
+(IDE-like: saved analyses, history, chat, droppable context, composition). Repo owner: Johannes Purba (AI PM).
 
----
-
-## ✅ Done (as of 2026-05-30)
-
-| # | Item | Notes |
-|---|------|-------|
-| 1 | Rewrote web cockpit into a clean single-file app | All JS + data + finance engine inlined into `web/index.html`; `style.css` separate. |
-| 2 | Sharpened positioning into an **honest AI Product case study** | Sidebar restructured: Problem → Target User → Solution → **Key Product Decision** (separate numbers from narrative). |
-| 3 | Added **AI DESIGN** tab | Honest "PROTOTYPE NOTE" + production LLM pipeline, grounding, structured output, eval & guardrails, model/cost trade-offs. |
-| 4 | Added **SIM** badge on the debate panel | Honest signal that the agent debate is a curated UX simulation, not a live LLM. |
-| 5 | Translated everything to **English** | Sidebar + all 6 assets' debate/advisory + UI strings. Verified no Indonesian remaining. |
-| 6 | Sharpened PRD & KPI tab | Time-to-insight, bias neutralization, decision adoption, auditability; split "Shipped" vs "Roadmap". |
-| 7 | Deployed to **Vercel** + verified live | Root dir `web`, no build step, static. Verified rendered content via fetch. |
-| 8 | Cleaned up repo | Deleted orphan `web/data.js` & `web/calculators.js`; rewrote `web/README.md` in English. |
-
-## 🧭 Key Decisions
-- **Separate numbers from narrative** — figures are deterministic code (zero numeric hallucination); LLM only narrates/debates locked figures. Trade-off: less flexibility, more trust.
-- **Honesty over hype** — explicitly mark the AI debate as simulated; document the real architecture instead of faking "live AI". Reads as AI PM maturity.
-- **Static, zero-dependency** — single-file app, `file://` compatible, trivial to deploy/share.
+- **Repo:** github.com/pojurb/demo1 · branch `main`
+- **Old demo (still live):** `web/` → https://demo-vercel-nu-peach.vercel.app/ (untouched until cutover)
+- **New product:** `app/` → Next.js 16 + TypeScript + Dexie
+- **Data model (locked):** see `DATA_MODEL.md`
+- **Build plan (locked):** see `~/.claude/plans/ethereal-popping-zebra.md`
 
 ---
 
-## 🚀 Next: Toward Production-Ready
+## Status
 
-Turning the architecture described in the **AI DESIGN** tab into a working system.
+| Phase | State |
+|---|---|
+| Node.js LTS install (v24.16, permanent user PATH) | ✅ |
+| **P0** Scaffold Next.js 16 + TS (`app/`) | ✅ build clean |
+| **P1** Finance engine → typed TS (`src/lib/finance`) | ✅ 23 Vitest tests pass |
+| **P2** Cockpit UI shell (React, deterministic calc) | ✅ runs at localhost:3000 |
+| Data model locked (`DATA_MODEL.md`) | ✅ |
+| **P3a** Data layer: domain types + Dexie repo + `computeMetrics` | ✅ build clean |
+| **P3b** Library sidebar + analysis-backed cockpit + tags/folders | ⬜ NEXT |
+| **P4** Live AI + chat (BYOK) — invoke `claude-api` skill | ⬜ |
+| **P5** Context sources (PDF/image, links, web research) | ⬜ |
+| **P6** Composition (portfolio cross-analysis) | ⬜ |
+| **P7** Guardrails + eval harness | ⬜ |
+| **P8** Polish, export/import, Vercel cutover | ⬜ |
 
-### P0 — Make the AI real
-- [ ] Backend endpoint (Vercel serverless function) — input asset params → run deterministic sandbox → prompt agents → return structured JSON.
-- [ ] Wire **Claude API** for Bull / Bear / Orchestrator agents (use prompt caching; see `claude-api` skill).
-- [ ] **Grounding**: compute all figures server-side, inject as locked facts in the prompt.
-- [ ] **Structured output**: enforce JSON schema (claim / evidence / severity) via tool use.
+Key files added in `app/src`: `lib/finance/*` (engine + tests + `compute.ts`), `lib/domain/types.ts`,
+`lib/repo/{db,index}.ts`, `lib/storage/index.ts`, `data/presets.ts`, `components/{Cockpit,charts}.tsx`.
 
-### P1 — Trust & quality
-- [ ] **Eval harness**: golden labeled-asset set; score faithfulness + Bull-vs-Bear balance on every prompt/model change.
-- [ ] **Guardrails**: validate each claim against sandbox figures; reject lopsided output.
-- [ ] **Observability**: log latency, token cost, and confidence per run.
-
-### P2 — Real product surface
-- [ ] **Data ingestion**: CSV upload + financial API (replace hardcoded presets).
-- [ ] **Persistence + auth**: move the decision ledger from LocalStorage to a real DB (e.g. Vercel KV/Postgres).
-- [ ] Loading/error states for live LLM latency.
-
-### Open questions
-- Target model tier? (Opus for reasoning vs Sonnet/Haiku for cost on the sandbox/cheap paths.)
-- Scope for the job application: keep simulated for the demo, or ship one fully-live vertical (e.g. stocks) as proof?
+## Key decisions
+- **Local-first BYOK** now; architected for multi-user later (async repo + AI-client seams).
+- **Stack:** Next.js (App Router) + TypeScript; ported industrial-grunge CSS; Dexie (IndexedDB).
+- **Analysis is the core object**; Ledger is a derived view; Portfolio is first-class for composition.
+- **Numbers are deterministic** (`computeMetrics`), locked into the AI prompt as facts (no numeric hallucination).
+- Attachments v1: **PDF + image** (native Claude blocks). Links + web research via Anthropic
+  `web_fetch` / `web_search` server tools (no CORS, no backend).
 
 ---
-*Maintained collaboratively. Update the tables above as items ship.*
+
+## ▶️ How to resume (after a reboot / new session)
+
+1. Open a terminal — `node -v` should work (Node is on the permanent user PATH).
+2. Start the dev server:
+   ```powershell
+   cd D:\jp-invest\app
+   npm run dev      # → http://localhost:3000
+   npm test         # finance engine tests
+   ```
+3. Re-open Claude Code in `D:\jp-invest`. Context to reload: this file, `DATA_MODEL.md`,
+   the plan file above, `git log`, and the saved memory (`ai-pm-portfolio-demo` /
+   `ai-pm-portfolio-workspace`). Next task: **P3b** (Library UI + analysis-backed cockpit).
+4. Everything is committed **and pushed** to `origin/main`, so it also survives disk loss.
