@@ -1,27 +1,23 @@
 /**
  * Bridges the deterministic engine to the domain `ComputedMetrics` shape — the
  * single, serializable "locked facts" object used by both the UI (stat boxes) and
- * the AI grounding prompt. Keeping this pure (no JSX) lets it be stored and reused.
+ * the AI grounding prompt. Pure (no JSX) so it can be stored and reused.
  */
 import { calcPE, calcDCF, calcLTV, calcCAC, calcRunway, calcBEP, calcIRR, formatIDR, formatNum } from "./index";
 import type { Vertical, AssetParameters } from "@/data/presets";
 import type { ComputedMetrics, Metric } from "@/lib/domain/types";
 
-export function computeMetrics(
-  vertical: Vertical,
-  params: AssetParameters,
-  base: AssetParameters,
-): ComputedMetrics {
+export function computeMetrics(vertical: Vertical, params: AssetParameters): ComputedMetrics {
   let metrics: Metric[];
 
   if (vertical === "stocks") {
-    const price = Number(params.price ?? 0);
-    const eps = Number(params.eps ?? 0);
-    const invested = Number(params.invested ?? 0);
-    const pe = calcPE(price, eps, params.roe);
-    const baseEps = Number(base.eps ?? 1) || 1;
-    const scaled = (base.cashflows ?? []).map((cf) => cf * (eps / baseEps));
-    const dcf = calcDCF(scaled, Number(params.discountRate ?? 0.1), Number(params.terminalMult ?? 10), invested);
+    const pe = calcPE(Number(params.price ?? 0), Number(params.eps ?? 0), params.roe);
+    const dcf = calcDCF(
+      params.cashflows ?? [],
+      Number(params.discountRate ?? 0.1),
+      Number(params.terminalMult ?? 10),
+      params.invested,
+    );
     metrics = [
       { key: "pe", label: "Implied P/E Ratio", value: pe.pe, display: `${formatNum(pe.pe, 1)}x`, verdict: pe.verdict },
       { key: "npv", label: "Intrinsic Value (NPV)", value: dcf.totalNPV, display: formatNum(dcf.totalNPV, 0) },
@@ -36,9 +32,8 @@ export function computeMetrics(
   } else if (vertical === "startups") {
     const arpu = Number(params.arpu ?? 0);
     const margin = Number(params.margin ?? 0);
-    const churn = Number(params.churn ?? 0);
     const cac = Number(params.cac ?? 0);
-    const ltv = calcLTV(arpu, margin, churn, cac);
+    const ltv = calcLTV(arpu, margin, Number(params.churn ?? 0), cac);
     const cacRes = calcCAC(cac, arpu, margin);
     const rwy = calcRunway(Number(params.cash ?? 0), Number(params.burn ?? 0));
     metrics = [
@@ -53,18 +48,8 @@ export function computeMetrics(
       { key: "runway", label: "Cash Runway", value: rwy.runwayMonths, display: `${rwy.runwayMonths.toFixed(1)} mo`, verdict: rwy.verdict },
     ];
   } else {
-    const fixed = Number(params.fixed ?? 0);
-    const price = Number(params.price ?? 0);
-    const variable = Number(params.variable ?? 0);
-    const invested = Number(params.invested ?? 0);
-    const bep = calcBEP(fixed, price, variable);
-    const y1 = bep.bepUnits * 1.5;
-    const cfs = [-invested];
-    for (let t = 1; t <= 5; t++) {
-      const u = y1 * Math.pow(1.1, t - 1);
-      cfs.push(u * price - u * variable - fixed);
-    }
-    const irr = calcIRR(cfs);
+    const bep = calcBEP(Number(params.fixed ?? 0), Number(params.price ?? 0), Number(params.variable ?? 0));
+    const irr = calcIRR(conventionalCashflows(params, bep.bepUnits));
     metrics = [
       { key: "bepUnits", label: "BEP Target (Volume)", value: bep.bepUnits, display: `${formatNum(bep.bepUnits, 0)} Units` },
       { key: "bepRevenue", label: "BEP Revenue (Annual)", value: bep.bepRevenue, display: formatIDR(bep.bepRevenue) },
@@ -73,6 +58,20 @@ export function computeMetrics(
   }
 
   return { vertical, metrics };
+}
+
+/** Simple 5-year projection used for the conventional IRR (year-1 = 1.5x BEP, +10% YoY). */
+export function conventionalCashflows(params: AssetParameters, bepUnits: number): number[] {
+  const price = Number(params.price ?? 0);
+  const variable = Number(params.variable ?? 0);
+  const fixed = Number(params.fixed ?? 0);
+  const y1 = bepUnits * 1.5;
+  const cfs = [-Number(params.invested ?? 0)];
+  for (let t = 1; t <= 5; t++) {
+    const u = y1 * Math.pow(1.1, t - 1);
+    cfs.push(u * price - u * variable - fixed);
+  }
+  return cfs;
 }
 
 /** Compact one-line grounding summary used when composing multiple analyses. */

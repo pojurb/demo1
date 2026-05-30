@@ -10,6 +10,8 @@ import type {
   PortfolioAnalysis,
   Folder,
   ComputedMetrics,
+  DebateResult,
+  AdvisoryResult,
   Vertical,
   AssetParameters,
 } from "@/lib/domain/types";
@@ -51,6 +53,9 @@ export function createAnalysis(input: {
   assetName: string;
   parameters: AssetParameters;
   metrics: ComputedMetrics;
+  debate?: DebateResult | null;
+  advisory?: AdvisoryResult | null;
+  folderId?: string | null;
   model: string;
 }): Analysis {
   const now = Date.now();
@@ -61,9 +66,11 @@ export function createAnalysis(input: {
     assetName: input.assetName,
     assetMeta: { currency: "IDR" },
     tags: [],
-    folderId: null,
+    folderId: input.folderId ?? null,
     parameters: input.parameters,
     metrics: input.metrics,
+    debate: input.debate ?? null,
+    advisory: input.advisory ?? null,
     sources: [],
     allowWebSearch: false,
     chat: [],

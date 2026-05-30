@@ -3,9 +3,23 @@
  * Ledger, history, and portfolios all derive from the analyses collection.
  * See DATA_MODEL.md at the repo root for the full rationale.
  */
-import type { Vertical, AssetParameters } from "@/data/presets";
+import type { Vertical, AssetParameters, DebateLine, AdvisoryLens } from "@/data/presets";
 
-export type { Vertical, AssetParameters };
+export type { Vertical, AssetParameters, DebateLine, AdvisoryLens };
+
+/** Red-team debate output (seeded from a preset now; produced by the AI in P4). */
+export interface DebateResult {
+  confidence: number;
+  bull: DebateLine[];
+  bear: DebateLine[];
+}
+
+/** The three advisory lenses (seeded now; produced by the AI in P4). */
+export interface AdvisoryResult {
+  operator: AdvisoryLens;
+  risk: AdvisoryLens;
+  predator: AdvisoryLens;
+}
 
 export type DecisionAction = "APPROVE" | "HOLD" | "REJECT";
 export type AnalysisStatus = "draft" | "decided" | "watching" | "archived";
@@ -90,6 +104,8 @@ export interface Analysis {
   folderId: string | null;
   parameters: AssetParameters;
   metrics: ComputedMetrics;
+  debate: DebateResult | null;
+  advisory: AdvisoryResult | null;
   sources: ContextSource[];
   allowWebSearch: boolean;
   chat: ChatMessage[];
